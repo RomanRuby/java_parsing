@@ -17,9 +17,9 @@ import java.util.List;
  * Created by Roman Nagibov
  */
 public class SearchGoogle extends AbstractSearchLinks {
-    private final static String cssQuery = "h3>a";
-    private final static String codeType = "UTF-8";
-    private final static String attributeKey = "href";
+    private final static String googleCssQuery = "h3>a";
+    private final static String googleCodeType = "UTF-8";
+    private final static String googleAttributeKey = "href";
 
 
     public SearchGoogle(String mainRequest, String searchMessage, String userAgent) {
@@ -30,24 +30,26 @@ public class SearchGoogle extends AbstractSearchLinks {
     public List<String> searchLinks() throws IOException {
         List<String> listURL = new ArrayList<>();
         try {
-            String request = mainRequest + URLEncoder.encode(searchMessage, codeType);
+            String request = mainRequest + URLEncoder.encode(searchMessage, googleCodeType);
 
             Document doc = Jsoup.connect(request).userAgent(PropertiesSearch.USER_AGENT).get();
 
-            Elements elements = doc.select(cssQuery);
-            for (Element elem : elements) {
-                String line = elem.absUrl(attributeKey);
-                line = URLDecoder.decode(line.substring(line.indexOf('=') + 1,
-                        line.indexOf('&')), codeType);
+            Elements elements = doc.select(googleCssQuery);
+            for (Element element : elements) {
+
+                String absUrl = element.absUrl(googleAttributeKey);
+                absUrl = URLDecoder.decode(absUrl.substring(absUrl.indexOf('=') + 1,
+                        absUrl.indexOf('&')), googleCodeType);
 
                 /**
                  * Limit ads and news
                  */
-                if (!line.startsWith("http")) {
+                if (!absUrl.startsWith("http")) {
                     continue;
                 }
-                listURL.add(line);
+                listURL.add(absUrl);
             }
+
         } catch (HttpStatusException e) {
             e.printStackTrace();
         }

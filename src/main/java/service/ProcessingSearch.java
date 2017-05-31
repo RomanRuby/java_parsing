@@ -47,7 +47,7 @@ public class ProcessingSearch {
     }
 
     public int getInputUserInt(Scanner sc, String message) {
-        int inputNumber = 0;
+        int inputNumber;
         while (true) {
             try {
                 System.out.println(message);

@@ -25,7 +25,7 @@ public class ViewInput {
     public void view() {
         Scanner sc = new Scanner(System.in);
         while (!(processingSearch.getStopCommand())) {
-            int trigger = 0;
+            int trigger;
             trigger = processingSearch.getInputUserInt(
                     sc,
                     " \nEnter your option : "

@@ -7,6 +7,7 @@ import service.SearchGoogle;
  * Created by Roman Nagibov
  */
 public enum SearchEnum {
+
     GOOGLE {
         @Override
         public AbstractSearchLinks getSearchMethod(PropertiesSearch propertiesSearch) {
