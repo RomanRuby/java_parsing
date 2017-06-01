@@ -12,8 +12,11 @@ public enum SearchEnum {
         @Override
         public AbstractSearchLinks getSearchMethod(PropertiesSearch propertiesSearch) {
 
-            return new SearchGoogle(PropertiesSearch.SEARCH_GOOGLE,
-                    propertiesSearch.getSearchMessage(), PropertiesSearch.USER_AGENT);
+            return new SearchGoogle(
+                    PropertiesSearch.SEARCH_GOOGLE,
+                    propertiesSearch.getSearchMessage(),
+                    PropertiesSearch.USER_AGENT
+            );
         }
     };
 

@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * Created by Roman Nagibov
  */
-public class PropertiesSearch {
+public class PropertiesSearch { // todo: refactor
 
     public static final String SEARCH_GOOGLE = "http://www.google.com/search?q=";
     public static final String USER_AGENT = "Mozilla/5.0" + " Chrome/58.0.3029.110";
