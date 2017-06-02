@@ -13,9 +13,7 @@ public enum SearchEnum {
         public AbstractSearchLinks getSearchMethod(PropertiesSearch propertiesSearch) {
 
             return new SearchGoogle(
-                    PropertiesSearch.SEARCH_GOOGLE,
-                    propertiesSearch.getSearchMessage(),
-                    PropertiesSearch.USER_AGENT
+                    PropertiesSearch.SEARCH_GOOGLE, propertiesSearch.getSearchMessage(), PropertiesSearch.USER_AGENT
             );
         }
     };

@@ -2,8 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>cushing</groupId>
-  <artifactId>javaparsing</artifactId>
+  <groupId>by.roman</groupId>
+  <artifactId>matcher</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -21,10 +21,28 @@
       <artifactId>jsoup</artifactId>
       <version>1.8.3</version>
     </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.16</version>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <compilerArguments>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </compilerArguments>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -33,11 +51,12 @@
           <archive>
             <manifest>
               <!-- <addClasspath>true</addClasspath> -->
-              <mainClass>Main</mainClass>
+              <mainClass>App</mainClass>
             </manifest>
           </archive>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 

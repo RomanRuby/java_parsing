@@ -1,5 +1,7 @@
 package entity;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,8 +9,9 @@ import java.util.Scanner;
 /**
  * Created by Roman Nagibov
  */
+@Data
 public class PropertiesSearch { // todo: refactor
-
+    
     public static final String SEARCH_GOOGLE = "http://www.google.com/search?q=";
     public static final String USER_AGENT = "Mozilla/5.0" + " Chrome/58.0.3029.110";
     private String searchMessage = null;
