@@ -1,4 +1,4 @@
-import view.ViewInput;
+import display.ViewDisplay;
 
 /**
  * Created by Roman Nagibov
@@ -6,8 +6,8 @@ import view.ViewInput;
 public class Main {
 
     public static void main(String[] args) {
-        ViewInput viewInput = new ViewInput();
-        viewInput.view();
+        ViewDisplay viewDisplay = new ViewDisplay();
+        viewDisplay.demonstrate();
     }
 
 }

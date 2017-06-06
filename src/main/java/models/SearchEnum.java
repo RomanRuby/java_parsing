@@ -1,7 +1,10 @@
-package entity;
+package models;
 
 import service.AbstractSearchLinks;
 import service.SearchGoogle;
+
+import static service.AbstractSearchLinks.SEARCH_GOOGLE;
+import static service.AbstractSearchLinks.USER_AGENT;
 
 /**
  * Created by Roman Nagibov
@@ -13,9 +16,10 @@ public enum SearchEnum {
         public AbstractSearchLinks getSearchMethod(PropertiesSearch propertiesSearch) {
 
             return new SearchGoogle(
-                    PropertiesSearch.SEARCH_GOOGLE, propertiesSearch.getSearchMessage(), PropertiesSearch.USER_AGENT
+                    SEARCH_GOOGLE, propertiesSearch.getSearchMessage(),USER_AGENT
             );
         }
+
     };
 
 

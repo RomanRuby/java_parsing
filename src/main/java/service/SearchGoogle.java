@@ -1,6 +1,6 @@
 package service;
 
-import entity.PropertiesSearch;
+import models.dto.QueryDto;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,8 +8,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,6 @@ import java.util.List;
  */
 public class SearchGoogle extends AbstractSearchLinks {
     private final static String googleCssQuery = "h3>a";
-    private final static String googleCodeType = "UTF-8";
     private final static String googleAttributeKey = "href";
 
 
@@ -27,19 +24,18 @@ public class SearchGoogle extends AbstractSearchLinks {
     }
 
     @Override
-    public List<String> searchLinks() throws IOException {
-        List<String> listURL = new ArrayList<>();
+    public List<QueryDto> searchLinks() throws IOException {
+        List<QueryDto> queryDtoList = new ArrayList<>();
         try {
-            String request = mainRequest + URLEncoder.encode(searchMessage, googleCodeType);
+            String request = mainRequest + EncodeSearchString(searchMessage);
 
-            Document doc = Jsoup.connect(request).userAgent(PropertiesSearch.USER_AGENT).get();
+            Document doc = Jsoup.connect(request).userAgent(USER_AGENT).get();
 
             Elements elements = doc.select(googleCssQuery);
             for (Element element : elements) {
 
                 String absUrl = element.absUrl(googleAttributeKey);
-                absUrl = URLDecoder.decode(absUrl.substring(absUrl.indexOf('=') + 1,
-                        absUrl.indexOf('&')), googleCodeType);
+                absUrl = DecodeSearchString(absUrl);
 
                 /**
                  * Limit ads and news
@@ -47,14 +43,30 @@ public class SearchGoogle extends AbstractSearchLinks {
                 if (!absUrl.startsWith("http")) {
                     continue;
                 }
-                listURL.add(absUrl);
+
+                String title = processingPage(absUrl);
+                queryDtoList.add(new QueryDto(absUrl, title));
             }
 
         } catch (HttpStatusException e) {
             e.printStackTrace();
         }
 
-        return listURL;
+        return queryDtoList;
+    }
+
+    private String processingPage(String url) {
+        String title = null;
+        if (url.endsWith("pdf")) {
+            return "This is pdf document";
+        }
+        try {
+            title = Jsoup.connect(url).userAgent(USER_AGENT).get().title();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return title;
     }
 
 }

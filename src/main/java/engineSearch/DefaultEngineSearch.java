@@ -1,8 +1,9 @@
 package engineSearch;
 
-import entity.PropertiesSearch;
-import entity.SearchEnum;
-import org.jsoup.Jsoup;
+import models.PropertiesSearch;
+import models.SearchEnum;
+import lombok.Data;
+import models.dto.QueryDto;
 import service.SearchLinks;
 
 import java.io.IOException;
@@ -12,30 +13,24 @@ import java.util.List;
 /**
  * Created by Roman Nagibov
  */
+@Data
 public class DefaultEngineSearch {
 
-    private PropertiesSearch prop;
+    private PropertiesSearch propertiesSearch;
 
 
-    public DefaultEngineSearch() {
-    }
-
-    public void setProp(PropertiesSearch prop) {
-        this.prop = prop;
-    }
-
-    public List<String> search() {
-        List<String> resultList = new ArrayList<>();
+    public List<QueryDto> search() {
+        List<QueryDto> resultList = new ArrayList<>();
         ArrayList<SearchLinks> searchLinks = new ArrayList<>();
-        List<SearchEnum> searchList = prop.getSearchEnumList();
+        List<SearchEnum> searchList = propertiesSearch.getSearchEnumList();
 
         for (SearchEnum linkSearch : searchList) {
-            searchLinks.add(linkSearch.getSearchMethod(this.prop));
+            searchLinks.add(linkSearch.getSearchMethod(propertiesSearch));
         }
 
         for (SearchLinks searchLink : searchLinks) {
 
-            List<String> listString = null;
+            List<QueryDto> listString = null;
             try {
                 listString = searchLink.searchLinks();
             } catch (IOException e) {
@@ -48,16 +43,6 @@ public class DefaultEngineSearch {
         return resultList;
     }
 
-    public String processingPage(String url, String UserAgent) {
-        String title = null;
 
-        try {
-            title = Jsoup.connect(url).userAgent(UserAgent).get().title();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return title;
-    }
 
 }
