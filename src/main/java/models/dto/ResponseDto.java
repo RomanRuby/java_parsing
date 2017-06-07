@@ -8,9 +8,9 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class QueryDto {
+public class ResponseDto {
 
-    String queryUri;
-    String title;
+    private String URL;
+    private String title;
 
 }

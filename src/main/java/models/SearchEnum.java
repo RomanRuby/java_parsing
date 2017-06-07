@@ -13,15 +13,13 @@ public enum SearchEnum {
 
     GOOGLE {
         @Override
-        public AbstractSearchLinks getSearchMethod(PropertiesSearch propertiesSearch) {
-
+        public AbstractSearchLinks getSearchMethod(String message) {
             return new SearchGoogle(
-                    SEARCH_GOOGLE, propertiesSearch.getSearchMessage(),USER_AGENT
+                    SEARCH_GOOGLE, message,USER_AGENT
             );
         }
-
     };
 
 
-    abstract public AbstractSearchLinks getSearchMethod(PropertiesSearch propertiesSearch);
+    abstract public AbstractSearchLinks getSearchMethod(String message);
 }

@@ -1,13 +1,11 @@
 package engineSearch;
 
-import models.PropertiesSearch;
-import models.SearchEnum;
 import lombok.Data;
-import models.dto.QueryDto;
+import models.SearchEnum;
+import models.dto.ResponseDto;
 import service.SearchLinks;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,33 +14,23 @@ import java.util.List;
 @Data
 public class DefaultEngineSearch {
 
-    private PropertiesSearch propertiesSearch;
+    private static DefaultEngineSearch defaultEngineSearch;
 
-
-    public List<QueryDto> search() {
-        List<QueryDto> resultList = new ArrayList<>();
-        ArrayList<SearchLinks> searchLinks = new ArrayList<>();
-        List<SearchEnum> searchList = propertiesSearch.getSearchEnumList();
-
-        for (SearchEnum linkSearch : searchList) {
-            searchLinks.add(linkSearch.getSearchMethod(propertiesSearch));
+    public static DefaultEngineSearch getInstance() {
+        if (defaultEngineSearch == null) {
+            defaultEngineSearch = new DefaultEngineSearch();
         }
+        return defaultEngineSearch;
+    }
 
-        for (SearchLinks searchLink : searchLinks) {
-
-            List<QueryDto> listString = null;
-            try {
-                listString = searchLink.searchLinks();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            resultList.addAll(listString);
-
-        }
-
-        return resultList;
+    private DefaultEngineSearch() {
     }
 
 
+    public List<ResponseDto> search(String message) throws IOException {
+        SearchEnum searchList = SearchEnum.GOOGLE;
+        SearchLinks searchLinks = (searchList.getSearchMethod(message));
+        return searchLinks.searchLinks();
+    }
 
 }

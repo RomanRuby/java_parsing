@@ -1,6 +1,6 @@
 package service;
 
-import models.dto.QueryDto;
+import models.dto.ResponseDto;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface SearchLinks {
 
-	List<QueryDto> searchLinks() throws IOException;
+	List<ResponseDto> searchLinks() throws IOException;
 
 }

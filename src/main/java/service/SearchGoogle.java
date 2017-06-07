@@ -1,6 +1,6 @@
 package service;
 
-import models.dto.QueryDto;
+import models.dto.ResponseDto;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,13 +24,11 @@ public class SearchGoogle extends AbstractSearchLinks {
     }
 
     @Override
-    public List<QueryDto> searchLinks() throws IOException {
-        List<QueryDto> queryDtoList = new ArrayList<>();
+    public List<ResponseDto> searchLinks() throws IOException {
+        List<ResponseDto> queryDtoList = new ArrayList<>();
         try {
             String request = mainRequest + EncodeSearchString(searchMessage);
-
             Document doc = Jsoup.connect(request).userAgent(USER_AGENT).get();
-
             Elements elements = doc.select(googleCssQuery);
             for (Element element : elements) {
 
@@ -45,7 +43,7 @@ public class SearchGoogle extends AbstractSearchLinks {
                 }
 
                 String title = processingPage(absUrl);
-                queryDtoList.add(new QueryDto(absUrl, title));
+                queryDtoList.add(new ResponseDto(absUrl, title));
             }
 
         } catch (HttpStatusException e) {
@@ -55,16 +53,12 @@ public class SearchGoogle extends AbstractSearchLinks {
         return queryDtoList;
     }
 
-    private String processingPage(String url) {
-        String title = null;
+    private String processingPage(String url) throws IOException {
+        String title;
         if (url.endsWith("pdf")) {
             return "This is pdf document";
         }
-        try {
             title = Jsoup.connect(url).userAgent(USER_AGENT).get().title();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return title;
     }
