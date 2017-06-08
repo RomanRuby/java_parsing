@@ -73,7 +73,7 @@ public class ViewMenu {
     private List<ResponseDto> getResult() {
         List<ResponseDto> result = new ArrayList<>();
         System.out.println("Please, enter your request:");
-        String message = (scanner.readRow());
+        String message = scanner.readRow();
         if (!isCheckURLLength(message)) {
             getMainMenu();
             return new ArrayList<>();
