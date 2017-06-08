@@ -33,18 +33,18 @@ public class ViewMenu {
         return viewMenu;
     }
 
-    public void getMainMenu() {
+    public void executeMainMenu() {
         while (run) {
-            getModeMenu();
+            executeModeMenu();
         }
     }
 
-    private void getModeMenu() {
+    private void executeModeMenu() {
         System.out.println(DisplayParameters.MENU);
         String row = scanner.readRow();
         if (!StringUtils.isNumeric(row)) {
             System.out.println("Input must be number!");
-            getModeMenu();
+            executeModeMenu();
             return;
         }
         int input = Integer.valueOf(row);
@@ -59,7 +59,7 @@ public class ViewMenu {
             }
             default:
                 System.out.println("Choose right option!");
-                getMainMenu();
+                executeMainMenu();
         }
 
     }
@@ -75,7 +75,7 @@ public class ViewMenu {
         System.out.println("Please, enter your request:");
         String message = scanner.readRow();
         if (!isCheckURLLength(message)) {
-            getMainMenu();
+            executeMainMenu();
             return new ArrayList<>();
         }
         try {

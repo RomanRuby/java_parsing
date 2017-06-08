@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println(DisplayParameters.GREETING);
-        menu.getMainMenu();
+        menu.executeMainMenu();
     }
 
 }
