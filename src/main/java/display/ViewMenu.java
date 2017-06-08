@@ -96,7 +96,7 @@ public class ViewMenu {
         String title = responseDto.getTitle();
 
         System.out.println("URL = " + firstURL);
-        System.out.println("Title first site = " + title);
+        System.out.println("Title site = " + title);
     }
 
     private boolean isCheckURLLength(String message) {
