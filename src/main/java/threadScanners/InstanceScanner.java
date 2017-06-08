@@ -1,6 +1,8 @@
 package threadScanners;
 
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 import java.util.concurrent.*;
@@ -11,8 +13,8 @@ import java.util.concurrent.*;
 @Data
 public class InstanceScanner {
 
+    private static final Logger LOGGER = LogManager.getLogger(InstanceScanner.class.getName());
     private static InstanceScanner instance;
-
     private Scanner scanner = new Scanner(System.in);
     private ExecutorService executor = Executors.newFixedThreadPool(1);
 
@@ -32,7 +34,7 @@ public class InstanceScanner {
         try {
             return future.get();
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            LOGGER.info("Info Message Logged", new InterruptedException(e.toString()));
         }
         return null;
     }

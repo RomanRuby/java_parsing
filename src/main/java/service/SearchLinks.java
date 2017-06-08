@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface SearchLinks {
 
-	List<ResponseDto> searchLinks() throws IOException;
+	List<ResponseDto> search() throws IOException;
 
 }

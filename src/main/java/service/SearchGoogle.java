@@ -1,6 +1,8 @@
 package service;
 
 import models.dto.ResponseDto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,16 +17,18 @@ import java.util.List;
  * Created by Roman Nagibov
  */
 public class SearchGoogle extends AbstractSearchLinks {
+
+    private static final Logger LOGGER = LogManager.getLogger(SearchGoogle.class.getName());
     private final static String googleCssQuery = "h3>a";
     private final static String googleAttributeKey = "href";
 
 
-    public SearchGoogle(String mainRequest, String searchMessage, String userAgent) {
-        super(mainRequest, searchMessage, userAgent);
+    public SearchGoogle(String mainRequest, String searchMessage) {
+        super(mainRequest, searchMessage);
     }
 
     @Override
-    public List<ResponseDto> searchLinks() throws IOException {
+    public List<ResponseDto> search() throws IOException {
         List<ResponseDto> queryDtoList = new ArrayList<>();
         try {
             String request = mainRequest + EncodeSearchString(searchMessage);
@@ -34,20 +38,18 @@ public class SearchGoogle extends AbstractSearchLinks {
 
                 String absUrl = element.absUrl(googleAttributeKey);
                 absUrl = DecodeSearchString(absUrl);
-
                 /**
                  * Limit ads and news
                  */
                 if (!absUrl.startsWith("http")) {
                     continue;
                 }
-
                 String title = processingPage(absUrl);
                 queryDtoList.add(new ResponseDto(absUrl, title));
             }
 
         } catch (HttpStatusException e) {
-            e.printStackTrace();
+            LOGGER.info("Info Message Logged", new HttpStatusException(e.getMessage(),e.getStatusCode(),e.getUrl()));
         }
 
         return queryDtoList;
