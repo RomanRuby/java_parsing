@@ -81,7 +81,7 @@ public class ViewMenu {
         try {
             result.addAll(defaultEngineSearch.search(message));
         } catch (IOException e) {
-            LOGGER.info("Info Message Logged", new IOException(e.toString()));
+            LOGGER.info("Info Message Logged", e.getMessage());
         }
         return result;
     }

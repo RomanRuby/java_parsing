@@ -34,7 +34,7 @@ public class InstanceScanner {
         try {
             return future.get();
         } catch (InterruptedException | ExecutionException e) {
-            LOGGER.info("Info Message Logged", new InterruptedException(e.toString()));
+            LOGGER.info("Info Message Logged", e.getMessage());
         }
         return null;
     }
