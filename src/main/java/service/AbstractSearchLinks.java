@@ -11,13 +11,13 @@ import java.net.URLEncoder;
  */
 public abstract class AbstractSearchLinks implements SearchLinks {
 
+	private final static String CodeType = "UTF-8";
 	public static final String SEARCH_GOOGLE = "http://www.google.com/search?q=";
 	public static final String USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html";
 	protected String mainRequest;
 	protected String searchMessage;
 
 
-	private final static String CodeType = "UTF-8";
 
 
 	public AbstractSearchLinks(String mainRequest, String searchMessage) {

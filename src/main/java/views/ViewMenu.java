@@ -42,7 +42,14 @@ public class ViewMenu {
         System.out.println(ViewParameters.MENU);
         switch (scanner.readRow()) {
             case "1": {
-                printFirstResult(getResult());
+                String message = getMessage();
+                if (!isCheckURLLength(message)) {
+                    System.out.println("Query longer than 2048");
+                    executeResultMenu();
+                    break;
+                }
+                List<ResponseDto> result = getResultList(message);
+                printFirstResult(result);
                 break;
             }
             case "2": {
@@ -62,19 +69,17 @@ public class ViewMenu {
         run = false;
     }
 
-    private List<ResponseDto> getResult() {
-        List<ResponseDto> result = new ArrayList<>();
+    private String getMessage(){
         System.out.println("Please, enter your request:");
-        String message = scanner.readRow();
-        if (!isCheckURLLength(message)) {
-            System.out.println("Query longer than 2048");
-            executeMainMenu();
-            return null;
-        }
+        return scanner.readRow();
+    }
+
+    private List<ResponseDto> getResultList(String message) {
+        List<ResponseDto> result = new ArrayList<>();
         try {
             result.addAll(defaultEngineSearch.search(message));
         } catch (IOException e) {
-            LOGGER.info("Info Message Logged", e.getMessage());
+            LOGGER.info(e.getMessage());
         }
         return result;
     }
