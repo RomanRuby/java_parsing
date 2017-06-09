@@ -2,7 +2,6 @@ package views;
 
 import engineSearch.DefaultEngineSearch;
 import models.dto.ResponseDto;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import threadScanners.InstanceScanner;
@@ -35,25 +34,18 @@ public class ViewMenu {
 
     public void executeMainMenu() {
         while (run) {
-            executeModeMenu();
+            executeResultMenu();
         }
     }
 
-    private void executeModeMenu() {
+    private void executeResultMenu() {
         System.out.println(ViewParameters.MENU);
-        String row = scanner.readRow();
-        if (!StringUtils.isNumeric(row)) {
-            System.out.println("Input must be number!");
-            executeModeMenu();
-            return;
-        }
-        int input = Integer.valueOf(row);
-        switch (input) {
-            case 1: {
+        switch (scanner.readRow()) {
+            case "1": {
                 printFirstResult(getResult());
                 break;
             }
-            case 2: {
+            case "2": {
                 stop();
                 break;
             }
@@ -104,7 +96,7 @@ public class ViewMenu {
     }
 
     private boolean isCheckURLLength(String message) {
-        return message.length() < 4;
+        return message.length() < 2048;
     }
 
 }
