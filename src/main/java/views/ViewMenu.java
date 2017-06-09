@@ -43,7 +43,7 @@ public class ViewMenu {
         switch (scanner.readRow()) {
             case "1": {
                 String message = getMessage();
-                if (getCorrectMessage(message)) {
+                if (isCorrectMessage(message)) {
                     List<ResponseDto> result = getResultList(message);
                     printFirstResult(result);
                 }
@@ -98,7 +98,7 @@ public class ViewMenu {
         System.out.println("Title site = " + title);
     }
 
-    private boolean getCorrectMessage(String message) {
+    private boolean isCorrectMessage(String message) {
         if (!(message.length() < 2048)) {
             System.out.println("Query longer than 2048");
             executeResultMenu();
@@ -106,6 +106,5 @@ public class ViewMenu {
         }
         return true;
     }
-
 
 }
