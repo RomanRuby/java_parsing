@@ -1,4 +1,4 @@
-package display;
+package views;
 
 import engineSearch.DefaultEngineSearch;
 import models.dto.ResponseDto;
@@ -40,7 +40,7 @@ public class ViewMenu {
     }
 
     private void executeModeMenu() {
-        System.out.println(DisplayParameters.MENU);
+        System.out.println(ViewParameters.MENU);
         String row = scanner.readRow();
         if (!StringUtils.isNumeric(row)) {
             System.out.println("Input must be number!");
@@ -75,8 +75,9 @@ public class ViewMenu {
         System.out.println("Please, enter your request:");
         String message = scanner.readRow();
         if (!isCheckURLLength(message)) {
+            System.out.println("Query longer than 2048");
             executeMainMenu();
-            return new ArrayList<>();
+            return null;
         }
         try {
             result.addAll(defaultEngineSearch.search(message));
@@ -87,6 +88,9 @@ public class ViewMenu {
     }
 
     private void printFirstResult(List<ResponseDto> responseDtos) {
+        if(null == responseDtos){
+            return;
+        }
         if(responseDtos.size() == 0){
             System.out.println("Empty list");
             return;
@@ -100,7 +104,7 @@ public class ViewMenu {
     }
 
     private boolean isCheckURLLength(String message) {
-        return message.length() < 2048;
+        return message.length() < 4;
     }
 
 }
