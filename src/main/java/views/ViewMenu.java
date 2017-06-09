@@ -42,11 +42,7 @@ public class ViewMenu {
         System.out.println(ViewParameters.MENU);
         switch (scanner.readRow()) {
             case "1": {
-                String message = getMessage();
-                if (isCorrectMessage(message)) {
-                    List<ResponseDto> result = getResultList(message);
-                    printFirstResult(result);
-                }
+                processRequest();
                 break;
             }
             case "2": {
@@ -59,6 +55,14 @@ public class ViewMenu {
             }
         }
 
+    }
+
+    private void processRequest() {
+        String message = getMessage();
+        if (isCorrectMessage(message)) {
+            List<ResponseDto> result = getResultList(message);
+            printFirstResult(result);
+        }
     }
 
     private void stop() {
@@ -83,10 +87,7 @@ public class ViewMenu {
     }
 
     private void printFirstResult(List<ResponseDto> responseDtos) {
-        if (null == responseDtos) {
-            return;
-        }
-        if (responseDtos.size() == 0) {
+        if (responseDtos.isEmpty()) {
             System.out.println("Empty list");
             return;
         }

@@ -56,13 +56,11 @@ public class SearchGoogle extends AbstractSearchLinks {
     }
 
     private String processingPage(String url) throws IOException {
-        String title;
         if (url.endsWith("pdf")) {
             return "This is pdf document";
         }
-            title = Jsoup.connect(url).userAgent(USER_AGENT).get().title();
 
-        return title;
+        return Jsoup.connect(url).userAgent(USER_AGENT).get().title();
     }
 
 }
