@@ -56,9 +56,10 @@ public class ViewMenu {
                 stop();
                 break;
             }
-            default:
+            default: {
                 System.out.println("Choose right option!");
                 executeMainMenu();
+            }
         }
 
     }
@@ -69,7 +70,7 @@ public class ViewMenu {
         run = false;
     }
 
-    private String getMessage(){
+    private String getMessage() {
         System.out.println("Please, enter your request:");
         return scanner.readRow();
     }
@@ -85,10 +86,10 @@ public class ViewMenu {
     }
 
     private void printFirstResult(List<ResponseDto> responseDtos) {
-        if(null == responseDtos){
+        if (null == responseDtos) {
             return;
         }
-        if(responseDtos.size() == 0){
+        if (responseDtos.size() == 0) {
             System.out.println("Empty list");
             return;
         }
