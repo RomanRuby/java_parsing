@@ -43,13 +43,10 @@ public class ViewMenu {
         switch (scanner.readRow()) {
             case "1": {
                 String message = getMessage();
-                if (!isCheckURLLength(message)) {
-                    System.out.println("Query longer than 2048");
-                    executeResultMenu();
-                    break;
+                if (getCorrectMessage(message)) {
+                    List<ResponseDto> result = getResultList(message);
+                    printFirstResult(result);
                 }
-                List<ResponseDto> result = getResultList(message);
-                printFirstResult(result);
                 break;
             }
             case "2": {
@@ -104,5 +101,15 @@ public class ViewMenu {
     private boolean isCheckURLLength(String message) {
         return message.length() < 2048;
     }
+
+    private boolean getCorrectMessage(String message) {
+        if (!isCheckURLLength(message)) {
+            System.out.println("Query longer than 2048");
+            executeResultMenu();
+            return false;
+        }
+        return true;
+    }
+
 
 }

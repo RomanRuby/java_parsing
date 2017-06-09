@@ -18,8 +18,6 @@ public abstract class AbstractSearchLinks implements SearchLinks {
 	protected String searchMessage;
 
 
-
-
 	public AbstractSearchLinks(String mainRequest, String searchMessage) {
 		this.mainRequest = mainRequest;
 		this.searchMessage = searchMessage;
