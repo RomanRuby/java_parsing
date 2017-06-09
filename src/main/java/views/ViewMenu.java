@@ -98,12 +98,8 @@ public class ViewMenu {
         System.out.println("Title site = " + title);
     }
 
-    private boolean isCheckURLLength(String message) {
-        return message.length() < 2048;
-    }
-
     private boolean getCorrectMessage(String message) {
-        if (!isCheckURLLength(message)) {
+        if (!(message.length() < 2048)) {
             System.out.println("Query longer than 2048");
             executeResultMenu();
             return false;
