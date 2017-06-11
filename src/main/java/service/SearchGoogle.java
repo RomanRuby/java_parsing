@@ -46,10 +46,14 @@ public class SearchGoogle extends AbstractSearchLinks {
                 }
                 String title = processingPage(absUrl);
                 queryDtoList.add(new ResponseDto(absUrl, title));
+
+                if(referenceNumber == queryDtoList.size()){
+                    break;
+                }
             }
 
         } catch (HttpStatusException e) {
-            LOGGER.info("Info Message Logged", new HttpStatusException(e.getMessage(),e.getStatusCode(),e.getUrl()));
+            LOGGER.info(e);
         }
 
         return queryDtoList;
