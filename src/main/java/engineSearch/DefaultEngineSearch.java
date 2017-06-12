@@ -15,7 +15,7 @@ import java.util.List;
 public class DefaultEngineSearch {
 
     private static DefaultEngineSearch defaultEngineSearch;
-
+    private int referenceNumber = 1;
 
     private DefaultEngineSearch() {
     }
@@ -29,7 +29,7 @@ public class DefaultEngineSearch {
 
     public List<ResponseDto> search(String message) throws IOException {
         SearchEnum searchEngine = SearchEnum.GOOGLE;
-        SearchLinks searchLink = searchEngine.getSearchMethod(message);
+        SearchLinks searchLink = searchEngine.getSearchMethod(message, referenceNumber);
         return searchLink.search();
     }
 
