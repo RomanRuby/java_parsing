@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class SearchGoogle extends AbstractSearchLinks {
 
-    private static final Logger LOGGER = LogManager.getLogger(SearchGoogle.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(SearchGoogle.class);
     private final static String googleCssQuery = "h3>a";
     private final static String googleAttributeKey = "href";
 

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ViewMenu {
 
-    private static final Logger LOGGER = LogManager.getLogger(ViewMenu.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(ViewMenu.class);
     private static ViewMenu viewMenu;
     private InstanceScanner scanner = InstanceScanner.getInstance();
     private DefaultEngineSearch defaultEngineSearch = DefaultEngineSearch.getInstance();
