@@ -14,7 +14,7 @@ public abstract class AbstractSearchLinks implements SearchLinks {
 	private final static String CodeType = "UTF-8";
 	public static final String SEARCH_GOOGLE = "http://www.google.com/search?q=";
 	public static final String USER_AGENT = "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html";
-	public int referenceNumber = 1;
+	public static final int referenceNumber = 1;
 	protected String mainRequest;
 	protected String searchMessage;
 

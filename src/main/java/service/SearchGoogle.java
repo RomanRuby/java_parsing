@@ -47,7 +47,7 @@ public class SearchGoogle extends AbstractSearchLinks {
                 String title = processingPage(absUrl);
                 queryDtoList.add(new ResponseDto(absUrl, title));
 
-                if(referenceNumber == queryDtoList.size()){
+                if (referenceNumber == queryDtoList.size()) {
                     break;
                 }
             }
