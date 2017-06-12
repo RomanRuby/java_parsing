@@ -7,8 +7,6 @@ import org.apache.logging.log4j.Logger;
 import threadScanners.InstanceScanner;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Roman Nagibov
@@ -60,7 +58,7 @@ public class ViewMenu {
     private void processRequest() {
         String message = getMessage();
         if (isCorrectMessage(message)) {
-            List<ResponseDto> result = getResultList(message);
+            ResponseDto result = getResultList(message);
             printFirstResult(result);
         }
     }
@@ -76,27 +74,19 @@ public class ViewMenu {
         return scanner.readRow();
     }
 
-    private List<ResponseDto> getResultList(String message) {
-        List<ResponseDto> result = new ArrayList<>();
+    private ResponseDto getResultList(String message) {
+        ResponseDto result = null;
         try {
-            result.addAll(defaultEngineSearch.search(message));
+            result = (defaultEngineSearch.search(message));
         } catch (IOException e) {
             LOGGER.info(e.getMessage());
         }
         return result;
     }
 
-    private void printFirstResult(List<ResponseDto> responseDtos) {
-        if (responseDtos.isEmpty()) {
-            System.out.println("Empty list");
-            return;
-        }
-        ResponseDto responseDto = responseDtos.get(0);
-        String firstURL = responseDto.getURL();
-        String title = responseDto.getTitle();
-
-        System.out.println("URL = " + firstURL);
-        System.out.println("Title site = " + title);
+    private void printFirstResult(ResponseDto responseDto) {
+        System.out.println("URL = " + responseDto.getURL());
+        System.out.println("Title site = " + responseDto.getTitle());
     }
 
     private boolean isCorrectMessage(String message) {

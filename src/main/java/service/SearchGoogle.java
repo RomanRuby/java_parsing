@@ -10,8 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Roman Nagibov
@@ -23,43 +22,44 @@ public class SearchGoogle extends AbstractSearchLinks {
     private final static String googleAttributeKey = "href";
 
 
-    public SearchGoogle(String mainRequest, String searchMessage, int referenceNumber) {
-        super(mainRequest, searchMessage, referenceNumber);
+    public SearchGoogle(String mainRequest, String searchMessage) {
+        super(mainRequest, searchMessage);
     }
 
     @Override
-    public List<ResponseDto> search() throws IOException {
-        List<ResponseDto> queryDtoList = new ArrayList<>();
+    public ResponseDto search() throws IOException {
+        ResponseDto responseDto = null;
         try {
-            String request = mainRequest + EncodeSearchString(searchMessage);
-            Document doc = Jsoup.connect(request).userAgent(USER_AGENT).get();
+            String query = installEncodingQuery();
+            Document doc = Jsoup.connect(query).userAgent(USER_AGENT).get();
             Elements elements = doc.select(googleCssQuery);
             for (Element element : elements) {
-
                 String absUrl = element.absUrl(googleAttributeKey);
-                absUrl = DecodeSearchString(absUrl);
-                /**
-                 * Limit ads and news
-                 */
-                if (!absUrl.startsWith("http")) {
+                absUrl = decodeSearchString(absUrl);
+
+                if (isUrlConsistNews(absUrl)) {
                     continue;
                 }
-                String title = processingPage(absUrl);
-                queryDtoList.add(new ResponseDto(absUrl, title));
-
-                if (referenceNumber == queryDtoList.size()) {
-                    break;
-                }
+                String title = getTitle(absUrl);
+                responseDto = new ResponseDto(title, absUrl);
             }
 
         } catch (HttpStatusException e) {
             LOGGER.info(e);
         }
 
-        return queryDtoList;
+        return responseDto;
     }
 
-    private String processingPage(String url) throws IOException {
+    private boolean isUrlConsistNews(String url) {
+        return (!url.startsWith("http"));
+    }
+
+    private String installEncodingQuery() throws UnsupportedEncodingException {
+        return mainRequest + encodeSearchString(searchMessage);
+    }
+
+    private String getTitle(String url) throws IOException {
         if (url.endsWith("pdf")) {
             return "This is pdf document";
         }

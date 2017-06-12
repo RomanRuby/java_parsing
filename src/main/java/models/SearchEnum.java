@@ -12,14 +12,14 @@ public enum SearchEnum {
 
     GOOGLE {
         @Override
-        public AbstractSearchLinks getSearchMethod(String message,int referenceNumber) {
+        public AbstractSearchLinks getSearchMethod(String message) {
             return new SearchGoogle(
-                    SEARCH_GOOGLE, message,referenceNumber
+                    SEARCH_GOOGLE, message
             );
         }
     };
 
 
-    abstract public AbstractSearchLinks getSearchMethod(String message,int referenceNumber);
+    abstract public AbstractSearchLinks getSearchMethod(String message);
 
 }
