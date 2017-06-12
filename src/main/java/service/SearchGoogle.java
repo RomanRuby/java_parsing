@@ -23,8 +23,8 @@ public class SearchGoogle extends AbstractSearchLinks {
     private final static String googleAttributeKey = "href";
 
 
-    public SearchGoogle(String mainRequest, String searchMessage,int referenceNumber) {
-        super(mainRequest, searchMessage,referenceNumber);
+    public SearchGoogle(String mainRequest, String searchMessage, int referenceNumber) {
+        super(mainRequest, searchMessage, referenceNumber);
     }
 
     @Override
