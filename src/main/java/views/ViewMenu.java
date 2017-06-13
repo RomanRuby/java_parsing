@@ -56,10 +56,11 @@ public class ViewMenu {
     }
 
     private void processRequest() {
-        String message = getMessage();
+        System.out.println("Please, enter your request:");
+        String message = scanner.readRow();
         if (isCorrectMessage(message)) {
-            ResponseDto result = getResultList(message);
-            printFirstResult(result);
+            ResponseDto result = getResult(message);
+            printResult(result);
         }
     }
 
@@ -69,24 +70,23 @@ public class ViewMenu {
         run = false;
     }
 
-    private String getMessage() {
-        System.out.println("Please, enter your request:");
-        return scanner.readRow();
-    }
-
-    private ResponseDto getResultList(String message) {
+    private ResponseDto getResult(String message) {
         ResponseDto result = null;
         try {
-            EnumSearch searchEngine = EnumSearch.GOOGLE;
-            LinksSearch searchLink = searchEngine.getSearchMethod(message);
-            result = searchLink.search();
+            result = processMessage(message);
         } catch (IOException e) {
             LOGGER.info(e.getMessage());
         }
         return result;
     }
 
-    private void printFirstResult(ResponseDto responseDto) {
+    private ResponseDto processMessage(String message) throws IOException {
+        EnumSearch searchEngine = EnumSearch.GOOGLE;
+        LinksSearch linksSearch = searchEngine.getSearchEngine(message);
+        return linksSearch.search();
+    }
+
+    private void printResult(ResponseDto responseDto) {
         System.out.println("URL = " + responseDto.getURL());
         System.out.println("Title site = " + responseDto.getTitle());
     }

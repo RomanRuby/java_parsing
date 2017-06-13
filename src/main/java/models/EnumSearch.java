@@ -12,7 +12,7 @@ public enum EnumSearch {
 
     GOOGLE {
         @Override
-        public AbstractLinksSearch getSearchMethod(String message) {
+        public AbstractLinksSearch getSearchEngine(String message) {
             return new GoogleSearch(
                     SEARCH_GOOGLE, message
             );
@@ -20,6 +20,6 @@ public enum EnumSearch {
     };
 
 
-    abstract public AbstractLinksSearch getSearchMethod(String message);
+    abstract public AbstractLinksSearch getSearchEngine(String message);
 
 }
