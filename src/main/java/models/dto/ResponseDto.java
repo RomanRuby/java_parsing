@@ -12,5 +12,5 @@ public class ResponseDto {
 
     private String URL;
     private String title;
-
+    
 }

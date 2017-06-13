@@ -15,6 +15,7 @@ public class InstanceScanner {
 
     private static final Logger LOGGER = LogManager.getLogger(InstanceScanner.class);
     private static InstanceScanner instance;
+
     private Scanner scanner = new Scanner(System.in);
     private ExecutorService executor = Executors.newFixedThreadPool(1);
 
@@ -30,7 +31,7 @@ public class InstanceScanner {
     }
 
     public String readRow() {
-        Future<String> future = executor.submit(processSearchMessage);
+        Future<String> future = executor.submit(processSearchMessage());
         try {
             return future.get();
         } catch (InterruptedException | ExecutionException e) {
@@ -43,6 +44,8 @@ public class InstanceScanner {
         executor.shutdown();
     }
 
-    private Callable<String> processSearchMessage = () -> scanner.nextLine();
+    private Callable<String> processSearchMessage() {
+        return () -> scanner.nextLine();
+    }
 
 }

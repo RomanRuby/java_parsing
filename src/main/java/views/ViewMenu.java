@@ -16,6 +16,7 @@ public class ViewMenu {
 
     private static final Logger LOGGER = LogManager.getLogger(ViewMenu.class);
     private static ViewMenu viewMenu;
+
     private InstanceScanner scanner = InstanceScanner.getInstance();
     private boolean run = true;
 
