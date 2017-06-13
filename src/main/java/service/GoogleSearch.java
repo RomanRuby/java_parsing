@@ -37,11 +37,11 @@ public class GoogleSearch extends AbstractLinksSearch {
                 String absUrl = element.absUrl(GOOGLE_ATTRIBUTE_KEY);
                 absUrl = decodeSearchString(absUrl);
 
-                if (isConsistNews(absUrl)) {
-                    continue;
+                if (!isConsistNews(absUrl)) {
+                    String title = getTitle(absUrl);
+                    responseDto = new ResponseDto(title, absUrl);
+                    break;
                 }
-                String title = getTitle(absUrl);
-                responseDto = new ResponseDto(title, absUrl);
             }
 
         } catch (HttpStatusException e) {
