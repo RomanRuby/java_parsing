@@ -14,7 +14,7 @@ import java.io.IOException;
 public class DefaultEngineSearch {
 
     private static DefaultEngineSearch defaultEngineSearch;
-    private int referenceNumber = 1;
+
 
     private DefaultEngineSearch() {
     }
