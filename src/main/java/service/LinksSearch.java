@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Created by Roman Nagibov
  */
-public interface SearchLinks {
+public interface LinksSearch {
 
 	ResponseDto search() throws IOException;
 

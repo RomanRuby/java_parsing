@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 /**
  * Created by Roman Nagibov
  */
-public abstract class AbstractLinksSearch implements SearchLinks {
+public abstract class AbstractLinksSearch implements LinksSearch {
 
     private static final  String CODE_TYPE = "UTF-8";
     public static final String SEARCH_GOOGLE = "http://www.google.com/search?q=";

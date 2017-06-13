@@ -1,19 +1,19 @@
 package models;
 
 import service.AbstractLinksSearch;
-import service.SearchGoogle;
+import service.GoogleSearch;
 
 import static service.AbstractLinksSearch.SEARCH_GOOGLE;
 
 /**
  * Created by Roman Nagibov
  */
-public enum SearchEnum {
+public enum EnumSearch {
 
     GOOGLE {
         @Override
         public AbstractLinksSearch getSearchMethod(String message) {
-            return new SearchGoogle(
+            return new GoogleSearch(
                     SEARCH_GOOGLE, message
             );
         }

@@ -15,14 +15,14 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by Roman Nagibov
  */
-public class SearchGoogle extends AbstractLinksSearch {
+public class GoogleSearch extends AbstractLinksSearch {
 
-    private final static Logger LOGGER = LogManager.getLogger(SearchGoogle.class);
+    private final static Logger LOGGER = LogManager.getLogger(GoogleSearch.class);
     private final static String GOOGLE_CSS_QUERY = "h3>a";
     private final static String GOOGLE_ATTRIBUTE_KEY = "href";
 
 
-    public SearchGoogle(String mainRequest, String searchMessage) {
+    public GoogleSearch(String mainRequest, String searchMessage) {
         super(mainRequest, searchMessage);
     }
 

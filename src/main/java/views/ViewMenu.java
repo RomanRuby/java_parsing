@@ -1,10 +1,10 @@
 package views;
 
-import models.SearchEnum;
+import models.EnumSearch;
 import models.dto.ResponseDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import service.SearchLinks;
+import service.LinksSearch;
 import threadScanners.InstanceScanner;
 
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class ViewMenu {
             }
             default: {
                 System.out.println("Choose right option!");
-                executeMainMenu();
+                executeResultMenu();
             }
         }
 
@@ -77,8 +77,8 @@ public class ViewMenu {
     private ResponseDto getResultList(String message) {
         ResponseDto result = null;
         try {
-            SearchEnum searchEngine = SearchEnum.GOOGLE;
-            SearchLinks searchLink = searchEngine.getSearchMethod(message);
+            EnumSearch searchEngine = EnumSearch.GOOGLE;
+            LinksSearch searchLink = searchEngine.getSearchMethod(message);
             result = searchLink.search();
         } catch (IOException e) {
             LOGGER.info(e.getMessage());
