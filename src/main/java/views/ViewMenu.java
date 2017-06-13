@@ -1,9 +1,10 @@
 package views;
 
-import engineSearch.DefaultEngineSearch;
+import models.SearchEnum;
 import models.dto.ResponseDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import service.SearchLinks;
 import threadScanners.InstanceScanner;
 
 import java.io.IOException;
@@ -16,7 +17,6 @@ public class ViewMenu {
     private static final Logger LOGGER = LogManager.getLogger(ViewMenu.class);
     private static ViewMenu viewMenu;
     private InstanceScanner scanner = InstanceScanner.getInstance();
-    private DefaultEngineSearch defaultEngineSearch = DefaultEngineSearch.getInstance();
     private boolean run = true;
 
 
@@ -77,7 +77,9 @@ public class ViewMenu {
     private ResponseDto getResultList(String message) {
         ResponseDto result = null;
         try {
-            result = (defaultEngineSearch.search(message));
+            SearchEnum searchEngine = SearchEnum.GOOGLE;
+            SearchLinks searchLink = searchEngine.getSearchMethod(message);
+            result = searchLink.search();
         } catch (IOException e) {
             LOGGER.info(e.getMessage());
         }

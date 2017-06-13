@@ -15,11 +15,11 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by Roman Nagibov
  */
-public class SearchGoogle extends AbstractSearchLinks {
+public class SearchGoogle extends AbstractLinksSearch {
 
-    private static final Logger LOGGER = LogManager.getLogger(SearchGoogle.class);
-    private final static String googleCssQuery = "h3>a";
-    private final static String googleAttributeKey = "href";
+    private final static Logger LOGGER = LogManager.getLogger(SearchGoogle.class);
+    private final static String GOOGLE_CSS_QUERY = "h3>a";
+    private final static String GOOGLE_ATTRIBUTE_KEY = "href";
 
 
     public SearchGoogle(String mainRequest, String searchMessage) {
@@ -30,14 +30,14 @@ public class SearchGoogle extends AbstractSearchLinks {
     public ResponseDto search() throws IOException {
         ResponseDto responseDto = null;
         try {
-            String query = installEncodingQuery();
+            String query = buildEncodedQuery();
             Document doc = Jsoup.connect(query).userAgent(USER_AGENT).get();
-            Elements elements = doc.select(googleCssQuery);
+            Elements elements = doc.select(GOOGLE_CSS_QUERY);
             for (Element element : elements) {
-                String absUrl = element.absUrl(googleAttributeKey);
+                String absUrl = element.absUrl(GOOGLE_ATTRIBUTE_KEY);
                 absUrl = decodeSearchString(absUrl);
 
-                if (isUrlConsistNews(absUrl)) {
+                if (isConsistNews(absUrl)) {
                     continue;
                 }
                 String title = getTitle(absUrl);
@@ -51,11 +51,11 @@ public class SearchGoogle extends AbstractSearchLinks {
         return responseDto;
     }
 
-    private boolean isUrlConsistNews(String url) {
+    private boolean isConsistNews(String url) {
         return (!url.startsWith("http"));
     }
 
-    private String installEncodingQuery() throws UnsupportedEncodingException {
+    private String buildEncodedQuery() throws UnsupportedEncodingException {
         return mainRequest + encodeSearchString(searchMessage);
     }
 
